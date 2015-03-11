@@ -30,12 +30,10 @@ TARGET_CPU_VARIANT := cortex-a9
 ARCH_ARM_HAVE_NEON := true
 ARCH_ARM_HAVE_TLS_REGISTER := true
 EXYNOS4210_ENHANCEMENTS := true
-# Include an expanded selection of fonts
-EXTENDED_FONT_FOOTPRINT := true
-
 TARGET_GLOBAL_CFLAGS += -mtune=cortex-a9 -mfpu=neon -mfloat-abi=softfp
 TARGET_GLOBAL_CPPFLAGS += -mtune=cortex-a9 -mfpu=neon -mfloat-abi=softfp
 EXYNOS4_ENHANCEMENTS := true
+
 ifdef EXYNOS4210_ENHANCEMENTS
 COMMON_GLOBAL_CFLAGS += -DEXYNOS4_ENHANCEMENTS
 COMMON_GLOBAL_CFLAGS += -DEXYNOS4210_ENHANCEMENTS
@@ -61,20 +59,15 @@ BOARD_NAND_PAGE_SIZE := 4096
 BOARD_NAND_SPARE_SIZE := 128
 BOARD_KERNEL_PAGESIZE := 4096
 BOARD_KERNEL_BASE := 0x40000000
-BOARD_KERNEL_CMDLINE := console=ttySAC2,115200 consoleblank=0 androidboot.selinux=permissive
+BOARD_KERNEL_CMDLINE := console=ttySAC2,115200 consoleblank=0
 
-# Enable dex-preoptimization to speed up first boot sequence
-# ifeq ($(HOST_OS),linux)
-# 	ifeq ($(TARGET_BUILD_VARIANT),userdebug)
-# 		WITH_DEXPREOPT := true
-# 	endif
-# endif
-# DONT_DEXPREOPT_PREBUILTS := true
+# Include an expanded selection of fonts
+EXTENDED_FONT_FOOTPRINT := true
 
 # Filesystem
 TARGET_USERIMAGES_USE_EXT4 := true
 BOARD_BOOTIMAGE_PARTITION_SIZE := 8388608
-BOARD_SYSTEMIMAGE_PARTITION_SIZE := 805306368
+BOARD_SYSTEMIMAGE_PARTITION_SIZE := 536870912
 BOARD_USERDATAIMAGE_PARTITION_SIZE := 2147483648
 BOARD_FLASH_BLOCK_SIZE := 4096
 
@@ -97,9 +90,6 @@ BOARD_EGL_SKIP_FIRST_DEQUEUE := true
 # FIMG Acceleration
 BOARD_USES_FIMGAPI := true
 BOARD_USES_SKIA_FIMGAPI := true
-
-# Logging
-TARGET_USES_LOGD := false
 
 # Enable WEBGL in WebKit
 ENABLE_WEBGL := true
@@ -124,6 +114,7 @@ BOARD_USE_YAMAHA_MC1N2_AUDIO := true
 # RIL
 BOARD_PROVIDES_LIBRIL := true
 BOARD_MODEM_TYPE := xmm6260
+BOARD_RIL_CLASS := ../../../hardware/samsung/ril
 
 # Camera
 BOARD_USES_PROPRIETARY_LIBFIMC := true
@@ -149,7 +140,7 @@ WIFI_DRIVER_MODULE_ARG           := "firmware_path=/system/etc/wifi/bcmdhd_sta.b
 WIFI_DRIVER_MODULE_AP_ARG        := "firmware_path=/system/etc/wifi/bcmdhd_apsta.bin nvram_path=/system/etc/wifi/nvram_net.txt"
 WIFI_BAND                        := 802_11_ABG
 BOARD_HAVE_SAMSUNG_WIFI          := true
-BOARD_NO_WIFI_HAL		 := true
+BOARD_NO_WIFI_HAL		 := false
 
 # Bluetooth
 BOARD_HAVE_BLUETOOTH := true
@@ -214,17 +205,17 @@ BOARD_RECOVERY_SWIPE := true
 TARGET_RECOVERY_FSTAB := device/samsung/galaxys2-common/rootdir/fstab.smdk4210
 RECOVERY_FSTAB_VERSION := 2
 
-BOARD_RIL_CLASS := ../../../hardware/samsung/ril
 # Device specific headers
 TARGET_SPECIFIC_HEADER_PATH := device/samsung/galaxys2-common/include
 
 # Charging mode
 BOARD_CHARGING_MODE_BOOTING_LPM := /sys/class/power_supply/battery/batt_lp_charging
 BOARD_BATTERY_DEVICE_NAME := "battery"
-BOARD_CHARGER_ENABLE_SUSPEND := true
 BOARD_CHARGER_RES := device/samsung/galaxys2-common/res/charger
-
+BOARD_CHARGER_ENABLE_SUSPEND := true
 BOARD_CUSTOM_BOOTIMG_MK := device/samsung/galaxys2-common/shbootimg.mk
+BOARD_USES_LEGACY_MMAP := true
+
 # Override healthd HAL
 BOARD_HAL_STATIC_LIBRARIES := libhealthd.exynos4
 
