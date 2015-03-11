@@ -276,28 +276,6 @@ typedef struct {
                                    to point connections. */
 } RIL_Data_Call_Response_v6;
 
-typedef enum {
-    RADIO_TECH_3GPP = 1, /* 3GPP Technologies - GSM, WCDMA */
-    RADIO_TECH_3GPP2 = 2 /* 3GPP2 Technologies - CDMA */
-} RIL_RadioTechnologyFamily;
-
-typedef struct {
-    RIL_RadioTechnologyFamily tech;
-    unsigned char             retry;       /* 0 == not retry, nonzero == retry */
-    int                       messageRef;  /* Valid field if retry is set to nonzero.
-                                              Contains messageRef from RIL_SMS_Response
-                                              corresponding to failed MO SMS.
-                                            */
-
-    union {
-        /* Valid field if tech is RADIO_TECH_3GPP2. See RIL_REQUEST_CDMA_SEND_SMS */
-        RIL_CDMA_SMS_Message* cdmaMessage;
-
-        /* Valid field if tech is RADIO_TECH_3GPP. See RIL_REQUEST_SEND_SMS */
-        char**                gsmMessage;
-    } message;
-} RIL_IMS_SMS_Message;
-
 typedef struct {
     int             status;     /* A RIL_DataCallFailCause, 0 which is PDP_FAIL_NONE if no error */
     int             suggestedRetryTime; /* If status != 0, this fields indicates the suggested retry
@@ -4116,8 +4094,6 @@ typedef struct {
  */
 #define RIL_REQUEST_SHUTDOWN 129
 
-=======
->>>>>>> de/cm-12.0
 /* SAMSUNG REQUESTS */
 #define RIL_REQUEST_GET_CELL_BROADCAST_CONFIG 10002
 
@@ -4675,7 +4651,6 @@ typedef struct {
  */
 #define RIL_UNSOL_RESPONSE_IMS_NETWORK_STATE_CHANGED 1037
 
-<<<<<<< HEAD
 /**
  * RIL_UNSOL_UICC_SUBSCRIPTION_STATUS_CHANGED
  *
@@ -4771,8 +4746,6 @@ typedef RIL_RadioState (*RIL_RadioStateRequest)();
 
 #endif
 
-=======
->>>>>>> de/cm-12.0
 /* SAMSUNG RESPONSE */
 #define SAMSUNG_UNSOL_RESPONSE_BASE 11000
 
@@ -4863,7 +4836,6 @@ typedef struct {
     char *password;
 } RIL_InitialAttachApn;
 
-<<<<<<< HEAD
 typedef struct {
     int authContext;            /* P2 value of authentication command, see P2 parameter in
                                    3GPP TS 31.102 7.1.2 */
@@ -4873,8 +4845,6 @@ typedef struct {
                                    NULL if no value. */
 } RIL_SimAuthentication;
 
-=======
->>>>>>> de/cm-12.0
 #ifdef RIL_SHLIB
 struct RIL_Env {
     /**
